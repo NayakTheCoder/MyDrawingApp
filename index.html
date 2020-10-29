@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title style="color: blue;">canvas</title>
+    <style>
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+#canvas {
+    border: 2px solid black;
+
+    
+}
+        </style>
+        <script>
+          window.addEventListener("load",()=>{
+    const canvas  = document.querySelector("#canvas");
+    const ctx = canvas.getContext("2d");
+    //resize
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+    //functions 
+    let painting = false;
+
+    function startPosition(){
+        painting = true;
+    }
+    function finishedPosition(){
+        painting = false;
+        ctx.beginPath();
+    }
+    function draw(e){
+        if(!painting) return;
+        ctx.lineWidth = 4;
+        ctx.lineCap = "round";
+        ctx.lineTo(e.clientX,e.clientY);
+        ctx.strokeStyle = 'blue';
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.lineTo(e.clientX,e.clientY);
+    }
+    //listen
+    canvas.addEventListener('mousedown',startPosition);
+    canvas.addEventListener('mouseup',finishedPosition);
+    canvas.addEventListener('mousemove',draw);
+})
+        </script>
+        
+</head>
+<body style="background-color: black;">
+   
+    <canvas id = "canvas"></canvas>
+   
+  
+</body>
+</html>
