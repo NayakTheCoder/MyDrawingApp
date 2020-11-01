@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title style="color: blue;">canvas</title>
+    <title style="color: blue;">Drawing App</title>
     <style>
     *{
     margin: 0;
@@ -12,7 +12,7 @@
 }
 #canvas {
     border: 2px solid black;
-
+    cursor:crosshair;
     
 }
         </style>
@@ -43,6 +43,10 @@
         ctx.beginPath();
         ctx.lineTo(e.clientX,e.clientY);
     }
+     //change canvas color
+       function myfunction(){
+       document.body.style.backgroundcolor = ("pink");
+       }
     //listen
     canvas.addEventListener('mousedown',startPosition);
     canvas.addEventListener('mouseup',finishedPosition);
@@ -52,7 +56,7 @@
         
 </head>
 <body style="background-color: black;">
-   
+   <button type = "button" id = "but" onclick = "myfunction()">Pink</button>
     <canvas id = "canvas"></canvas>
    
   
