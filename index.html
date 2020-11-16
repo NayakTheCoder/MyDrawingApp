@@ -3,64 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title style="color: blue;">Drawing App</title>
+    <title>Drawing App</title>
     <style>
-    *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-#canvas {
-    border: 2px solid black;
-    cursor:crosshair;
-    
-}
-        </style>
-        <script>
-          window.addEventListener("load",()=>{
-    const canvas  = document.querySelector("#canvas");
-    const ctx = canvas.getContext("2d");
-    //resize
-    canvas.height = window.innerHeight;
-    canvas.width = window.innerWidth;
-    //functions 
-    let painting = false;
+        #canvas{
+            border: 2px solid black;
+            cursor: crosshair;
+        }
+        #div1{
+            padding-left:40px
+        }
+       
+       
+    </style>
+</head>
+<body>
+    <div id="div1">
+        Pen color: <input type="color" id="color"><span>   </span>Backgroundcolor: <input type="color" id="back-color"> <button type="button" onclick="myfunction()">Clear canvas</button>
+    </div>
+<canvas id="canvas" </canvas>
+</body>
+<script>
+    let canvas = document.getElementById("canvas");
+    let ctx = canvas.getContext("2d");
+     let color =document.getElementById("color");
+     let back = document.getElementById("back-color");
 
-    function startPosition(){
+     // declairng the height and the width of the canvas
+canvas.height = innerHeight;
+canvas.width = innerWidth;
+
+
+// all the functions go in here , intially the painting is set to false  . when the painting begins  ,the drawing begins
+    let painting =false;
+
+    function start(){
         painting = true;
     }
-    function finishedPosition(){
+    function finish(){
         painting = false;
         ctx.beginPath();
     }
+    // as give in the evente listener  , when the mouse "moves" over the canvas  ,the event takes place and the draw function is executed where the event occurs
     function draw(e){
-        if(!painting) return;
-        ctx.lineWidth = 4;
+        if(!painting){
+            return;
+        }
+        ctx.lineWidth = 5;
         ctx.lineCap = "round";
         ctx.lineTo(e.clientX,e.clientY);
-        ctx.strokeStyle = 'blue';
+        ctx.strokeStyle = color.value;
         ctx.stroke();
         ctx.beginPath();
-        ctx.lineTo(e.clientX,e.clientY);
+        ctx.moveTo(e.clientX,e.clientY);
+        canvas.style.backgroundColor = back.value;
+
+      
     }
-    //listen
-    canvas.addEventListener('mousedown',startPosition);
-    canvas.addEventListener('mouseup',finishedPosition);
-    canvas.addEventListener('mousemove',draw);
-})
-        </script>
-        
-</head>
-<body style="background-color: black;">
- <button type="button" id="but" onclick="myfunction1()">pink</button>
-    <canvas id = "canvas"></canvas>
-   
-  
-</body>
-    <script>
-       function myfunction1(){
-        document.body.style.backgroundColor = ("pink");
-        
-    }
-    </script>
+  // as the button "clear canvas" is dedicated to clearing the canvas  . when the button is clicked  , the canvas is cleared .
+  function myfunction(){
+     ctx.clearRect(0,0,canvas.width,canvas.height);
+  }
+    // adding event listeners  , when a particular event occurs , a particular function is called .
+
+    canvas.addEventListener("mousedown",start);
+    canvas.addEventListener("mouseup",finish);
+    canvas.addEventListener("mousemove",draw);
+
+</script>
 </html>
